@@ -2,6 +2,4 @@ module unpackTCP/002
 
 go 1.18
 
-require github.com/edsrzf/mmap-go v1.1.0
-
-require golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e
+require golang.org/x/exp v0.0.0-20221114191408-850992195362
