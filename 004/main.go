@@ -51,7 +51,6 @@ type Pcap struct {
 
 //获取大小端信息
 func getByteOrder(order []byte) binary.ByteOrder {
-    fmt.Println(strings.ToUpper(hex.EncodeToString(order)))
     switch strings.ToUpper(hex.EncodeToString(order)) {
     case BE:
         return binary.BigEndian
