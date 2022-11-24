@@ -1,4 +1,4 @@
-module unpackTCP/002
+module unpack
 
 go 1.18
 
