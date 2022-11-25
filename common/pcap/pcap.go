@@ -14,6 +14,7 @@ const (
 	BE              = "A1B2C3D4" //大端
 	LE              = "D4C3B2A1" //小端
 	PCAPHEADER_SIZE = 24         //文件头大小为24B
+    ChinaDateFormat = "2006-01-02 15:04:05.000000"
 )
 
 //文件头
@@ -74,10 +75,13 @@ func getByteOrder(order []byte) binary.ByteOrder {
 }
 
 //从数据包里提取时间信息
-func (p *Packet) getPacketTime(order binary.ByteOrder) string {
-	t := time.Unix(int64(order.Uint32(p.packetHeader.timeSec[:])),
-		int64(order.Uint32(p.packetHeader.timeMicrosec[:])))
-	return t.Local().String()
+func (p *Packet) GetPacketTime(order binary.ByteOrder) string {
+    packetHeader := p.packetHeader
+
+    unixTime := time.Unix(
+        int64(order.Uint32(packetHeader.timeSec[:])),
+        int64(order.Uint32(packetHeader.timeMicrosec[:])))
+	return unixTime.Format(ChinaDateFormat)
 }
 
 //映射文件,返回整个文件数据
