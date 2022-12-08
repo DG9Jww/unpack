@@ -1,5 +1,5 @@
 package layer
 
-type layer interface {
-	parse(data byte)
+type Layer interface {
+	Parse(data byte)
 }

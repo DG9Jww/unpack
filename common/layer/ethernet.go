@@ -25,7 +25,7 @@ func NewEthernetPacket() *EthernetPacket {
 	return &EthernetPacket{}
 }
 
-//解析数据,传入的data应该为数据包实际数据
+//解析数据,把数据解析到数据包结构体里，传入的data应该为数据包实际数据
 func (e *EthernetPacket) Parse(data []byte) {
 	reader := pcap.NewByteReader(data)
 	copy(e.DstAddr[:], reader.Read(6))
@@ -53,21 +53,21 @@ func (e *EthernetPacket) getType() string {
 
 //打印
 func (e *EthernetPacket) String() string {
-    t := e.getType()
+	t := e.getType()
 
-    //得到mac地址字符串
-    var strSlice []string
-    for _,v := range e.DstAddr {
-        //这里必须是 %02X  不能直接%X   直接%X的话，比如0B,则不会要0,直接B，格式就乱了
-        strSlice = append(strSlice,fmt.Sprintf("%02X",v)) 
-    }
-    dstMac := strings.Join(strSlice,":")
+	//得到mac地址字符串
+	var strSlice []string
+	for _, v := range e.DstAddr {
+		//这里必须是 %02X  不能直接%X   直接%X的话，比如0B,则不会要0,直接B，格式就乱了
+		strSlice = append(strSlice, fmt.Sprintf("%02X", v))
+	}
+	dstMac := strings.Join(strSlice, ":")
 
-    var strSlice2 []string
-    for _,v := range e.SrcAddr {
-        strSlice2 = append(strSlice2,fmt.Sprintf("%02X",v)) 
-    }
-    srcMac := strings.Join(strSlice2,":")
+	var strSlice2 []string
+	for _, v := range e.SrcAddr {
+		strSlice2 = append(strSlice2, fmt.Sprintf("%02X", v))
+	}
+	srcMac := strings.Join(strSlice2, ":")
 
-    return fmt.Sprintf("SrcMac:[%s]  DstMac:[%s]  Type:[%s]",srcMac,dstMac,t)
+	return fmt.Sprintf("SrcMac:[%s]  DstMac:[%s]  Type:[%s]", srcMac, dstMac, t)
 }

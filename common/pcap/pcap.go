@@ -90,7 +90,7 @@ func MapFile(path string) []byte {
 	readerAt, err := mmap.Open(path)
     
 	if err != nil {
-		log.Fatalln("open file failed")
+        log.Fatalln("open file failed:",err)
 	}
 	b := make([]byte, readerAt.Len())
 	_, err = readerAt.ReadAt(b, 0)
